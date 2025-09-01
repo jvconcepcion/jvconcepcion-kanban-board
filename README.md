@@ -14,7 +14,7 @@ The primary goal was to build a clean, maintainable, and robust application by m
 
 ## State Management: Why Zustand?
 **Zustand** was chosen as the state management library for this project.
-The core challenge of this application is managing client-side UI state—the positions of tickets, the current theme, search terms, etc. While React Query is an excellent library, it is specifically designed for managing server state (caching, re-fetching, and synchronizing data with an API).
+The core challenge of this application is managing client-side UI state, the positions of tickets, the current theme, search terms, etc. While React Query is an excellent library, it is specifically designed for managing server state (caching, re-fetching, and synchronizing data with an API).
 
 Since this project only loads initial data once from a mock API and then handles all subsequent state changes locally, Zustand was the ideal choice for several reasons:
 
