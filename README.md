@@ -60,5 +60,5 @@ Unit tests have been added for the core application logic using the industry-sta
 
 1. **To run the test**
 ```sh
-npm install
+npm run test
 ```
