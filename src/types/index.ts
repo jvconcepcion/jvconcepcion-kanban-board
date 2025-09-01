@@ -20,11 +20,11 @@ export interface Column {
 export interface BoardState {
   tickets: Record<string, Ticket>;
   columns: Record<string, Column>;
-  theme: 'light' | 'dark' | 'ocean';
+  theme: 'light' | 'dark';
   searchTerm: string;
   isLoading: boolean;
   error: string | null;
-  setTheme: (theme: 'light' | 'dark' | 'ocean') => void;
+  toggleTheme: () => void;
   setSearchTerm: (term: string) => void;
   loadInitialData: () => Promise<void>;
   moveTicket: (ticketId: string, sourceColumnId: string, destColumnId: string, newIndex: number) => void;

@@ -17,7 +17,9 @@ export const useBoardStore = create<BoardState>()(
       searchTerm: '',
       isLoading: false,
       error: null,
-      setTheme: (theme) => set({ theme }),
+      toggleTheme: () => set((state) => ({ 
+        theme: state.theme === 'dark' ? 'light' : 'dark' 
+      })),
       setSearchTerm: (term) => set({ searchTerm: term }),
 
       loadInitialData: async () => {
@@ -44,36 +46,65 @@ export const useBoardStore = create<BoardState>()(
       },
 
       moveTicket: (ticketId, sourceColumnId, destColumnId, newIndex) => {
-        const { columns } = get();
-        const sourceTicketIds = Array.from(columns[sourceColumnId].ticketIds);
-        
-        if (sourceColumnId !== destColumnId) {
+        set(state => {
+          const { columns } = state;
+
+          // Safely get the source and destination columns
+          const sourceColumn = columns[sourceColumnId];
           const destColumn = columns[destColumnId];
-          if (destColumn.ticketIds.length >= destColumn.limit) {
-            alert(`Column "${destColumn.name}" has reached its limit of ${destColumn.limit} tickets.`);
-            return;
+
+          // If either column is not found, abort the move to prevent a crash.
+          if (!sourceColumn || !destColumn) {
+            console.error("Move failed: Invalid source or destination column ID.");
+            // Return original state without changes
+            return state; 
           }
-        }
-        
-        const [removedTicketId] = sourceTicketIds.splice(sourceTicketIds.findIndex(id => id === ticketId), 1);
-        
-        if (sourceColumnId === destColumnId) {
-          sourceTicketIds.splice(newIndex, 0, removedTicketId);
-          set({
-            columns: { ...columns, [sourceColumnId]: { ...columns[sourceColumnId], ticketIds: sourceTicketIds } }
-          });
-        } else {
-          const destTicketIds = Array.from(columns[destColumnId].ticketIds);
-          destTicketIds.splice(newIndex, 0, removedTicketId);
-          set({
+
+          // Check WIP limit only when moving to a DIFFERENT column
+          if (sourceColumnId !== destColumnId) {
+            if (destColumn.ticketIds.length >= destColumn.limit) {
+              // Use setTimeout to avoid blocking state update with an alert
+              setTimeout(() => {
+                alert(`Column "${destColumn.name}" has reached its limit of ${destColumn.limit} tickets.`);
+              }, 0);
+              return state; // Abort the move
+            }
+          }
+
+          // Remove ticket from the source column's ticketIds
+          const newSourceTicketIds = sourceColumn.ticketIds.filter(id => id !== ticketId);
+
+          // Create the updated source column
+          const newSourceColumn = {
+            ...sourceColumn,
+            ticketIds: newSourceTicketIds,
+          };
+
+          let newDestColumn = { ...destColumn };
+
+          // Add ticket to the destination column's ticketIds
+          if (sourceColumnId === destColumnId) {
+            // Reordering within the same column
+            newSourceTicketIds.splice(newIndex, 0, ticketId);
+            newSourceColumn.ticketIds = newSourceTicketIds;
+            newDestColumn = newSourceColumn; // They are the same column
+          } else {
+            // Moving to a different column
+            const newDestTicketIds = [...destColumn.ticketIds];
+            newDestTicketIds.splice(newIndex, 0, ticketId);
+            newDestColumn.ticketIds = newDestTicketIds;
+          }
+
+          // Return the new state
+          return {
             columns: {
               ...columns,
-              [sourceColumnId]: { ...columns[sourceColumnId], ticketIds: sourceTicketIds },
-              [destColumnId]: { ...columns[destColumnId], ticketIds: destTicketIds }
-            }
-          });
-        }
-      }
+              [sourceColumnId]: newSourceColumn,
+              [destColumnId]: newDestColumn,
+            },
+          };
+        });
+      },
     }),
     {
       name: 'kanban-board-storage',
