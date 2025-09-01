@@ -1,3 +1,5 @@
+export type ColumnId = 'todo' | 'in-progress' | 'done';
+
 export interface Ticket {
   id: string;
   name: string;

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "RPT-003",
+    "name": "Finalize and distribute Q3 Sales Report",
+    "description": "Compile sales data from Shopify and Google Analytics to create the final Q3 performance report for stakeholders.",
+    "createdAt": "2025-08-22T09:00:00Z",
+    "updatedAt": "2025-08-25T16:30:00Z",
+    "tags": ["reporting", "sales-data"],
+    "columnId": "done"
+  },
+  {
+    "id": "PROD-201",
+    "name": "Upload 'Summer Clearance' collection photos",
+    "description": "Upload all edited product photography for the Summer Clearance items. Ensure all SKUs are tagged correctly in the CMS.",
+    "createdAt": "2025-08-26T11:00:00Z",
+    "updatedAt": "2025-08-27T15:00:00Z",
+    "tags": ["product-listing", "photography"],
+    "columnId": "done"
+  },
+  {
+    "id": "MKTG-101",
+    "name": "Create social media assets for Holiday campaign",
+    "description": "Design and get approval for 5 Instagram posts, 3 TikTok videos, and 2 Facebook banners for the upcoming Holiday Kickoff campaign.",
+    "createdAt": "2025-08-28T10:00:00Z",
+    "updatedAt": "2025-09-01T14:00:00Z",
+    "tags": ["marketing", "q4-campaign", "social-media"],
+    "columnId": "in-progress"
+  },
+  {
+    "id": "PROD-202",
+    "name": "Write SEO descriptions for 'Autumn Arrivals'",
+    "description": "Write SEO-optimized product descriptions for the 15 new SKUs in the 'Autumn Arrivals' collection. Target keywords: 'cozy sweater', 'fall fashion'.",
+    "createdAt": "2025-08-29T09:30:00Z",
+    "updatedAt": "2025-09-01T11:00:00Z",
+    "tags": ["product-listing", "seo", "copywriting"],
+    "columnId": "in-progress"
+  },
+  {
+    "id": "OPS-301",
+    "name": "Restock inventory for best-selling hoodies",
+    "description": "Coordinate with the warehouse to receive and process the new shipment of best-selling hoodies (SKUs: H-001, H-004, H-005). Update stock levels on the website.",
+    "createdAt": "2025-08-30T13:00:00Z",
+    "updatedAt": "2025-09-01T15:10:00Z",
+    "tags": ["inventory", "logistics", "warehouse"],
+    "columnId": "in-progress"
+  },
+  {
+    "id": "WEB-401",
+    "name": "Fix Bug: 'Sort by Price' filter not working",
+    "description": "Users have reported that the 'Sort by Price: High to Low' product filter on collection pages is not functioning correctly. Needs urgent investigation.",
+    "createdAt": "2025-09-01T09:00:00Z",
+    "updatedAt": "2025-09-01T09:00:00Z",
+    "tags": ["website-bug", "tech", "frontend"],
+    "columnId": "todo"
+  },
+  {
+    "id": "MKTG-102",
+    "name": "Plan email campaign for January Clearance",
+    "description": "Outline the email marketing strategy for the post-holiday clearance sale. Includes segmentation, subject lines, and promotional offers.",
+    "createdAt": "2025-09-01T10:30:00Z",
+    "updatedAt": "2025-09-01T10:30:00Z",
+    "tags": ["marketing", "email", "planning"],
+    "columnId": "todo"
+  },
+  {
+    "id": "OPS-302",
+    "name": "Investigate delayed shipments to California",
+    "description": "Multiple customers from California have reported shipping delays. Coordinate with our logistics partner to identify the root cause.",
+    "createdAt": "2025-09-01T14:45:00Z",
+    "updatedAt": "2025-09-01T14:45:00Z",
+    "tags": ["shipping", "logistics", "customer-support"],
+    "columnId": "todo"
+  }
+]
