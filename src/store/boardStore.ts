@@ -3,9 +3,9 @@ import { persist } from 'zustand/middleware';
 import { Ticket, Column, BoardState } from '@/types';
 
 const initialColumns: Record<string, Column> = {
-  'todo': { id: 'todo', name: 'To Do', ticketIds: [], limit: 5 }, // [cite: 6, 9]
-  'in-progress': { id: 'in-progress', name: 'In Progress', ticketIds: [], limit: 3 }, // [cite: 7, 9]
-  'done': { id: 'done', name: 'Done', ticketIds: [], limit: 10 }, // [cite: 8, 9]
+  'todo': { id: 'todo', name: 'To Do', ticketIds: [], limit: 5 },
+  'in-progress': { id: 'in-progress', name: 'In Progress', ticketIds: [], limit: 3 },
+  'done': { id: 'done', name: 'Done', ticketIds: [], limit: 10 },
 };
 
 export const useBoardStore = create<BoardState>()(
@@ -18,17 +18,18 @@ export const useBoardStore = create<BoardState>()(
       isLoading: false,
       error: null,
       setTheme: (theme) => set({ theme }),
-      setSearchTerm: (term) => set({ searchTerm: term }), // [cite: 30]
+      setSearchTerm: (term) => set({ searchTerm: term }),
 
       loadInitialData: async () => {
-        set({ isLoading: true, error: null }); // [cite: 35]
+        set({ isLoading: true, error: null });
         try {
-          const response = await fetch('/api/tickets'); // [cite: 19]
+          const response = await fetch('/api/tickets');
           if (!response.ok) throw new Error('Failed to fetch tickets');
           const initialTickets: Ticket[] = await response.json();
 
           const newTickets: Record<string, Ticket> = {};
-          const newColumns = JSON.parse(JSON.stringify(initialColumns)); // Deep copy
+          // Deep copy
+          const newColumns = JSON.parse(JSON.stringify(initialColumns));
 
           for (const ticket of initialTickets) {
             newTickets[ticket.id] = ticket;
@@ -38,7 +39,7 @@ export const useBoardStore = create<BoardState>()(
           }
           set({ tickets: newTickets, columns: newColumns, isLoading: false });
         } catch (error) {
-          set({ error: (error as Error).message, isLoading: false }); // [cite: 35]
+          set({ error: (error as Error).message, isLoading: false });
         }
       },
 
@@ -46,12 +47,11 @@ export const useBoardStore = create<BoardState>()(
         const { columns } = get();
         const sourceTicketIds = Array.from(columns[sourceColumnId].ticketIds);
         
-        // Check WIP Limit before moving [cite: 38]
         if (sourceColumnId !== destColumnId) {
           const destColumn = columns[destColumnId];
           if (destColumn.ticketIds.length >= destColumn.limit) {
             alert(`Column "${destColumn.name}" has reached its limit of ${destColumn.limit} tickets.`);
-            return; // Abort move
+            return;
           }
         }
         
@@ -76,7 +76,7 @@ export const useBoardStore = create<BoardState>()(
       }
     }),
     {
-      name: 'kanban-board-storage', // local storage key [cite: 22]
+      name: 'kanban-board-storage',
     }
   )
 );

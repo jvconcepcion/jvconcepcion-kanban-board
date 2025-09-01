@@ -8,9 +8,8 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
 
-// For dark mode theme
+  // For dark mode theme
   darkMode: 'class',
-  // 3. Extend the theme with custom CSS variables for multi-theme support
   theme: {
     extend: {
       colors: {
